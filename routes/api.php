@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DailyStepsController;
+use App\Http\Controllers\LeaderBoardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +27,9 @@ Route::prefix('v1')->group(function() {
     //protected routes
     Route::middleware('auth:sanctum')->group(function() {
         Route::post('/logout', [AuthController::class, 'logout']);
+        Route::get('/leaderboard', LeaderBoardController::class);
+
+        Route::apiResource('/daily-steps', DailyStepsController::class);
 
         Route::get('/user', function(Request $request){
             return $request->user();
