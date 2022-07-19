@@ -20,9 +20,8 @@ class UserFactory extends Factory
         $email = fake()->safeEmail();
 
         return [
-            'first_name' => fake()->name(),
-            'last_name' => fake()->name(),
-            'display_picture' => "https://robohash.org/" .$email ."?gravatar=yes",
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
             'email' => $email,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
