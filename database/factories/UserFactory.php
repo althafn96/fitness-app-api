@@ -17,10 +17,13 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $email = fake()->safeEmail();
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->safeEmail(),
-            'email_verified_at' => now(),
+            'first_name' => fake()->name(),
+            'last_name' => fake()->name(),
+            'display_picture' => "https://robohash.org/" .$email ."?gravatar=yes",
+            'email' => $email,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ];
