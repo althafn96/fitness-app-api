@@ -13,8 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
+
+        Schema::connection('mongodb')->dropIfExists('daily_steps');
+        
         Schema::connection('mongodb')->create('daily_steps', function ($collection) {
             $collection->index('user_id');
+            $collection->index('steps_count');
+            $collection->index('start_time');
+            $collection->index('end_time');
         });
     }
 
@@ -25,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::connection('mongodb')->dropIfExists('daily_steps');
+        // Schema::connection('mongodb')->dropIfExists('daily_steps');
     }
 };
