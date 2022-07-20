@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class DailyStepsController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,10 +18,11 @@ class DailyStepsController extends Controller
      */
     public function index()
     {
-        $dailySteps = auth()->user()->dailySteps;
+        $dailySteps = auth()->user()->dailySteps()->orderBy('start_time', 'DESC')->get();
 
         return DailyStepsResource::collection($dailySteps);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -46,58 +48,14 @@ class DailyStepsController extends Controller
                 'stepsCount' => $daySteps->stepsCount + $steps
             ]);
         } else {
-            $user->dailySteps()->create([
+            $daySteps = $user->dailySteps()->create([
                 'stepsCount' => $steps,
-                'start_time' => Carbon::now()->addDays(2)->startOfDay()->toDateTimeString(),
-                'end_time' => Carbon::now()->addDays(2)->endOfDay()->toDateTimeString()
+                'start_time' => Carbon::now()->startOfDay()->toDateTimeString(),
+                'end_time' => Carbon::now()->endOfDay()->toDateTimeString()
             ]);
         }
 
-        return new UsersResource($user);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return new DailyStepsResource($daySteps);
+    
     }
 }

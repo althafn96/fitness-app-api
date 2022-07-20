@@ -26,14 +26,11 @@ Route::prefix('v1')->group(function() {
 
     //protected routes
     Route::middleware('auth:sanctum')->group(function() {
+
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::get('/leaderboard', LeaderBoardController::class);
 
-        Route::apiResource('/daily-steps', DailyStepsController::class);
-
-        Route::get('/user', function(Request $request){
-            return $request->user();
-        });
+        Route::apiResource('/daily-steps', DailyStepsController::class, ['only' => ['index', 'store']]);
     });
 
 });
