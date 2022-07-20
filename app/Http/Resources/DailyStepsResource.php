@@ -15,9 +15,9 @@ class DailyStepsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'stepsCount' => $this->stepsCount,
-            'start_time' => $this->start_time,
-            'end_time' => $this->end_time,
+            'stepsCount' => $this->steps_count,
+            'startTime' => $this->start_time,
+            'endTime' => $this->end_time,
         ];
     }
 }

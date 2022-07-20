@@ -17,7 +17,7 @@ class DailyStep extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'stepsCount',
+        'steps_count',
         'start_time',
         'end_time',
     ];

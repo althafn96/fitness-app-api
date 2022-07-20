@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class DailyStepsController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -41,15 +41,19 @@ class DailyStepsController extends Controller
         }
 
         // check if steps already exist for the current day
-        $daySteps = DailyStep::where('start_time', '<', Carbon::now()->toDateTimeString())->where('end_time', '>', Carbon::now()->toDateTimeString())->first();
+        $daySteps = auth()->user()
+                            ->dailySteps()
+                            ->where('start_time', '<', Carbon::now()->toDateTimeString())
+                            ->where('end_time', '>', Carbon::now()->toDateTimeString())
+                            ->first();
 
         if($daySteps) {
             $daySteps->update([
-                'stepsCount' => $daySteps->stepsCount + $steps
+                'steps_count' => 14000
             ]);
         } else {
             $daySteps = $user->dailySteps()->create([
-                'stepsCount' => $steps,
+                'steps_count' => $steps,
                 'start_time' => Carbon::now()->startOfDay()->toDateTimeString(),
                 'end_time' => Carbon::now()->endOfDay()->toDateTimeString()
             ]);

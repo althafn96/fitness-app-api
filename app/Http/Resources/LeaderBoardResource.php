@@ -15,10 +15,12 @@ class LeaderBoardResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'full_name' => $this->first_name . " " . $this->last_name,
-            'display_picture' => $this->display_picture,
-            'stepsCount' => $this->currentDayStepsCount,
-            'isCurrentUser' => $this->id === auth()->id()
+            'fullName' => $this->user->first_name . " " . $this->user->last_name,
+            'displayPicture' => $this->user->display_picture,
+            'stepsCount' => $this->steps_count,
+            'isCurrentUser' => $this->user_id === auth()->id(),
+            'rank' => $this->rank,
+            'start_time' => $this->start_time,
         ];
     }
 }
