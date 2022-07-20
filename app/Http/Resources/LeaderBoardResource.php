@@ -19,8 +19,7 @@ class LeaderBoardResource extends JsonResource
             'displayPicture' => $this->user->display_picture,
             'stepsCount' => $this->steps_count,
             'isCurrentUser' => $this->user_id === auth()->id(),
-            'rank' => $this->rank,
-            'start_time' => $this->start_time,
+            'rank' => $this->rank
         ];
     }
 }
